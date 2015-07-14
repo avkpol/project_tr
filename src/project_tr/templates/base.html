@@ -1,0 +1,89 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+		  href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/css/bootstrap-datetimepicker.min.css">
+{#    <link rel="stylesheet"#}
+{#          href="{{ PORTAL_URL }}{% static "css/style.css" %}">#}
+
+    <title>{% block meta_title %}{% endblock meta_title %}
+
+    </title>
+</head>
+<!-- Start Content Columns -->
+    <div class="row" id="content-columns">
+      <div class="col-xs-12" id="content-column">
+
+		{% block status_message %}
+		{% if request.GET.status_message %}
+		<div class="alert alert-warning" role="alert">{{ request.GET.status_message }}</div>
+		{% endif %}
+		{% endblock status_message %}
+
+<body>
+
+
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="#"></a>
+    </li>
+    <li><a href="#">Activities</a></li>
+    <li><a href="#">Risk Register</a></li>
+{#    <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}>#}
+    <li role="presentation" {% if request.path == '/' %}{% endif %}>
+	        <a href="{% url "controls_list"%}">Controls</a></li>
+{#    <li role="presentation" {% if "controls_list.html" in request.path %}class="active"{% endif %}>#}
+{#	        <a href="controls_list.html">Controls</a></li>#}
+    <li role="presentation" {% if '/policies_list' in request.path %}class="active"{% endif %}>
+	        <a href="/policies_list">Policies</a></li>
+    <li><a href="/controls_list">Documents</a></li>
+    <li><a href="#">Assets</a></li>
+</ul>
+
+ <h2>{% block title %}{% endblock title %}</h2>
+ {% block content %}{% endblock content %}
+
+     <!-- Modal Window -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog"> <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><!-- --></h4> </div>
+        <div class="modal-body"><!-- --></div>
+    <div class="modal-footer"><!-- --></div>
+  </div>
+</div>
+
+
+
+
+<!-- Javascripts Inclusion -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
+  <script> moment.locale('uk'); </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="{% static "js/jquery.cookie.js" %}"></script>
+  <script src="{% static "js/main.js" %}"></script>
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.14.30/js/bootstrap-datetimepicker.min.js"></script>#}
+{#  <script src="{% static "js/pace.js" %}"></script>#}
+
+
+
+{% block extra_js %}{% endblock extra_js %}
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+
+{% extends "base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Control{% endblock meta_title %}
+
+{% block title %}Control{% endblock title %}
+<h2>Control</h2>
+{% block content %}
+
+    <table class="table">
+
+{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+	<thead>
+		<tr>
+			<th><a href="{% url "controls_list" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			ID
+			{% if order_by == 'id' and reverse != '1' %}&uarr;
+			{% elif order_by == 'id' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+			<th><a href="{% url "controls_list" %}?order_by=parent_id{% if order_by == 'parent_id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			Parent ID
+			{% if order_by == 'parent_id' and reverse != '1' %}&uarr;
+			{% elif order_by == 'parent_id' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+            <th><a href="{% url "controls_list" %}?order_by=name{% if order_by == 'name' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			Name
+			{% if order_by == 'name' and reverse != '1' %}&uarr;
+			{% elif order_by == 'name' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+            <th><a href="{% url "controls_list" %}?order_by=url{% if order_by == 'url' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			URL
+			{% if order_by == 'url' and reverse != '1' %}&uarr;
+			{% elif order_by == 'url' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+            <th><a href="{% url "controls_list" %}?order_by=type{% if order_by == 'type' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			Type
+			{% if order_by == 'type' and reverse != '1' %}&uarr;
+			{% elif order_by == 'type' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+            <th><a href="{% url "controls_list" %}?order_by=control_type{% if order_by == 'control_type' and reverse != '1' %}&amp;reverse=1{% endif %}">
+			Control Type
+			{% if order_by == 'control_type' and reverse != '1' %}&uarr;
+			{% elif order_by == 'control_type' and reverse == '1' %}&darr;
+			{% endif %}
+			</a> </th>
+{#			<a href="{% url "home" %}?order_by=leader{% if order_by == 'leader' and reverse != '1' %}&amp;reverse=1{% endif %}"> 				  Староста#}
+{#￼			{% if order_by == 'leader' and reverse != '1' %}&uarr;#}
+{#			{% elif order_by == 'leader' and reverse == '1' %}&darr;#}
+{#			{% endif %}#}
+{#			</a> </th>#}
+{#			<th>Дії</th>#}
+{#		</tr>#}
+	</thead>
+{% endwith %}
+
+  <tbody>
+    {% for control in controls %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+        <td><a href="{% url "control_edit_form" control.id %}">{{ control.parent_id }}</td>
+        <td><a href="{% url "control_edit_form" control.id %}">{{ control.name }}</td>
+        <td><a href="{% url "control_edit_form" control.id %}" class="control-edit-form-link" >{{ control.url }}</td>
+        <td><a href="{% url "control_edit_form" control.id %}" class="control-edit-form-link">{{ control.type }}</td>
+        <td><a href="{% url "control_edit_form" control.id %}" class="control-edit-form-link">{{ control.control_type }}</td>
+
+
+
+
+
+
+    </tr>
+    {% endfor %}
+          </tbody>
+        </table>
+{% endblock content %}
